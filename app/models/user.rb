@@ -1,10 +1,15 @@
 class User < ActiveRecord::Base
   has_secure_password
 
-  has_one :active_task, :class => Task
+  belongs_to :active_task, :class => Task
 
   def find_next_task
-    Task.where(:user => self).order("importance DESC").limit(1).first
+    Task.where(:user => self, :completed_at => nil).order("importance DESC, created_at ASC").limit(1).first
+  end
+
+  def skip_task(task)
+    Task.where(:user => self, :completed_at => nil).
+      where("id != ?", task.id).order("importance DESC, created_at ASC").limit(1).first
   end
 
   def importances
@@ -17,6 +22,6 @@ class User < ActiveRecord::Base
      "$500 - $1000",
      "$1000+"
     ]
-  end
+  end  
   
 end

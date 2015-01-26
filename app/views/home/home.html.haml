@@ -1,36 +1,33 @@
 .header
   .home-menu.pure-menu.pure-menu-open.pure-menu-horizontal.pure-menu-fixed
+    %a.pure-menu-heading(href)
+      Welcome, #{current_user.first_name}.
     %ul
-      %li.pure-menu-selected
-        %a(href="#") Home 
       %li
         %a(href="#") Sign Out
 
-.splash-container
-  .splash
-    - if flash[:success]
-      %aside.success
-        = flash[:success]
-    - elsif flash[:error]
-      %aside.error
-        = flash[:error]
+- if @task
+  .splash-container
+    .splash
+      - if flash[:success]
+        %aside.success
+          = flash[:success]
+      - elsif flash[:error]
+        %aside.error
+          = flash[:error]
 
-    %h1.splash-head 
-      - if @task
+      %h1.splash-head 
         = @title
-      - else
-        No Tasks To Do!
-    %p.splash-subhead
-      - if @active
+      %p.splash-subhead
         How is it going?
-      - elsif @task
-        Ready to get started?
-      - else
-        Scroll down to add some tasks.
 
-    - if @task and !@active
       %p
-        %a.pure-button.pure-button-primary(href="/tasks/#{@task.id}/start") Get Started
+        = link_to "I'm Done!", complete_task_path(@task), :method => :post, :class => "pure-button pure-button-primary"
+      - if !flash[:unskippable]
+        %p
+          = link_to "Don't want to do this", skip_task_path(@task), :method => :post, :class => "pure-button"
+      %p
+        = link_to "No longer needed", forget_task_path(@task), :method => :post, :class => "pure-button"
 
 .content-wrapper
   .content
@@ -43,7 +40,7 @@
         Add a new task
 
       %p
-        Overwhelmed? Log some tasks and feel better!
+        Overwhelmed? Log some tasks and feel better.
 
       .pure-g
         .l-box-lrg.pure-u-1.pure-u-md-2-5

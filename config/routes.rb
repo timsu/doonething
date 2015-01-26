@@ -56,7 +56,13 @@ Rails.application.routes.draw do
 
   get 'home' => 'home#home'
 
-  resources :tasks
+  resources :tasks do
+    member do
+      post 'skip'
+      post 'complete'
+      post 'forget'
+    end
+  end
   
   root 'home#index'
   
