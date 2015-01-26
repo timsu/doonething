@@ -51,18 +51,12 @@ label {
  * -- PURE FORM STYLES --
  * Style the form inputs and labels
  */
-.pure-form label {
-    margin: 1em 0 0;
-    font-weight: bold;
-    font-size: 100%;
-}
-
-.pure-form input[type] {
-    border: 2px solid #ddd;
-    box-shadow: none;
-    font-size: 100%;
-    width: 100%;
-    margin-bottom: 1em;
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-overflow: '';
+  text-indent: 0.01px;
 }
 
 /*
@@ -123,6 +117,18 @@ a.pure-button-primary {
     color: #AECFE5;
 }
 
+/*
+ * -- ASIDE STYLES --
+ * This is the blue top section that appears on the page.
+ */
+
+aside {
+  padding: 0.3em 1em;
+  border-radius: 3px;
+  color: #fff;
+}
+aside.success { background: rgb(28, 184, 65) }
+aside.error { background: rgb(202, 184, 60) }
 
 /*
  * -- SPLASH STYLES --

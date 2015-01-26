@@ -8,12 +8,12 @@
 
 .splash-container
   .splash
-    - if session[:success]
+    - if flash[:success]
       %aside.success
-        = session[:success]
-    - elsif session[:error]
+        = flash[:success]
+    - elsif flash[:error]
       %aside.error
-        = session[:error]
+        = flash[:error]
 
     %h1.splash-head 
       - if @task
@@ -38,18 +38,26 @@
       Add More Tasks
 
     .content
-      %h2.content-head.is-center
+      %h2.content-subhead
+        %i.fa.fa-plus
+        Add a new task
+
+      %p
+        Overwhelmed? Log some tasks and feel better!
 
       .pure-g
         .l-box-lrg.pure-u-1.pure-u-md-2-5
-          = form_for @new_task, :html => { :class => "pure-form pure-form-stacked" } do |f|
+          = form_for @new_task, :html => { :class => "pure-form pure-form-aligned" } do |f|
             %fieldset
-              = f.label :title, "Title:"
-              = f.text_field :title
+              .pure-control-group
+                = f.label :title, "Title:"
+                = f.text_field :title, :class => "pure-u-1-2"
 
-              = f.label :importance, "Importance:"
-              = f.text_field :importance
+              .pure-control-group
+                = f.label :importance, "Value:"
+                = select_tag :importance, options_for_select(@task_importances)
 
-              = f.submit :class => "pure-button"
+              .pure-controls
+                = f.submit :class => "pure-button pure-button-primary"
 
 

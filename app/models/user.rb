@@ -6,5 +6,17 @@ class User < ActiveRecord::Base
   def find_next_task
     Task.where(:user => self).order("importance DESC").limit(1).first
   end
+
+  def importances
+    [
+     "$0 - $5",
+     "$5 - $25",
+     "$25 - $50",
+     "$50 - $100",
+     "$100 - $500",
+     "$500 - $1000",
+     "$1000+"
+    ]
+  end
   
 end

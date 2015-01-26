@@ -4,14 +4,12 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.user = User.first
 
-    if @task.importance.nil?
-      @task.importance = 0
-    end
+    @task.importance = params[:importance]
     
     if @task.save
-      session[:success] = "Task saved!"
+      flash[:success] = "Task saved!"
     else
-      session[:error] = @task.errors
+      flash[:error] = @task.errors
     end
     
     redirect_to "/home"

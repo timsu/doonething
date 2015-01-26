@@ -13,6 +13,8 @@ class HomeController < ApplicationController
     end
     
     @title = @task.title if @task
+
+    @task_importances = @user.importances.each_with_index.map { |x, i| [x, i] }
     
     @new_task = Task.new
   end
