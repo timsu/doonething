@@ -16,8 +16,10 @@
         %aside.error
           = flash[:error]
 
-      %h1.splash-head 
-        = @title
+      .splash-head 
+        %h1= @task.title
+        - if @task.notes?
+          %p @task.notes
       %p.splash-subhead
         How is it going?
 
@@ -53,6 +55,10 @@
               .pure-control-group
                 = f.label :importance, "Value:"
                 = select_tag :importance, options_for_select(@task_importances)
+
+              .pure-control-group
+                = f.label :Notes, "Notes:"
+                = f.text_area :notes, :class => "pure-u-1-2"
 
               .pure-controls
                 = f.submit :class => "pure-button pure-button-primary"

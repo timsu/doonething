@@ -12,8 +12,6 @@ class HomeController < ApplicationController
       current_user.save
     end
     
-    @title = @task.title if @task
-
     @task_importances = current_user.importances.each_with_index.map { |x, i| [x, i] }
     
     @new_task = Task.new
