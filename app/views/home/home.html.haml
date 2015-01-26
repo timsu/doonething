@@ -1,0 +1,55 @@
+.header
+  .home-menu.pure-menu.pure-menu-open.pure-menu-horizontal.pure-menu-fixed
+    %ul
+      %li.pure-menu-selected
+        %a(href="#") Home 
+      %li
+        %a(href="#") Sign Out
+
+.splash-container
+  .splash
+    - if session[:success]
+      %aside.success
+        = session[:success]
+    - elsif session[:error]
+      %aside.error
+        = session[:error]
+
+    %h1.splash-head 
+      - if @task
+        = @title
+      - else
+        No Tasks To Do!
+    %p.splash-subhead
+      - if @active
+        How is it going?
+      - elsif @task
+        Ready to get started?
+      - else
+        Scroll down to add some tasks.
+
+    - if @task and !@active
+      %p
+        %a.pure-button.pure-button-primary(href="/tasks/#{@task.id}/start") Get Started
+
+.content-wrapper
+  .content
+    %h2.content-head.is-center
+      Add More Tasks
+
+    .content
+      %h2.content-head.is-center
+
+      .pure-g
+        .l-box-lrg.pure-u-1.pure-u-md-2-5
+          = form_for @new_task, :html => { :class => "pure-form pure-form-stacked" } do |f|
+            %fieldset
+              = f.label :title, "Title:"
+              = f.text_field :title
+
+              = f.label :importance, "Importance:"
+              = f.text_field :importance
+
+              = f.submit :class => "pure-button"
+
+

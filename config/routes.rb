@@ -54,6 +54,10 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
+  get 'home' => 'home#home'
+
+  resources :tasks
+  
   root 'home#index'
   
 end
