@@ -13,6 +13,11 @@ class TasksController < ApplicationController
     else
       flash[:error] = @task.errors
     end
+
+    if @task.importance > (current_user.active_task.try(:importance) || 0)
+      current_user.active_task = @task
+      current_user.save
+    end
     
     redirect_to "/home"
   end

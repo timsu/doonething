@@ -4,15 +4,14 @@ class User < ActiveRecord::Base
   belongs_to :active_task, :class => Task
   
   def find_next_task(options = {})
-    query = Task.where(:user => self, :completed_at => nil)
-    if options[:skip_task]
-      query = query.where("id != ?", options[:skip_task])
-    end
-    query.order("importance DESC, random(), created_at ASC").limit(1).first
+    Task.where(:user => self, :completed_at => nil).
+      order("importance DESC, random() ASC").limit(1).first
   end
 
   def skip_task(task)
-    find_next_task :skip_task => task.id
+    Task.where(:user => self, :completed_at => nil).
+      where("id != ?", task.id).
+      order("importance * 2 - ifnull(postponed, 0) DESC, random(), created_at ASC").limit(1).first
   end
 
   def importances
