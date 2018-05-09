@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
 
-  belongs_to :active_task, :class => Task
+  belongs_to :active_task, :class_name => 'Task'
   
   def find_next_task(options = {})
     Task.where(:user => self, :completed_at => nil).
